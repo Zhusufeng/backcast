@@ -1,12 +1,28 @@
 var SearchView = Backbone.View.extend({
 
-  //target HTML search element
-  el: '.search',
+  events: {
+    'click button': 'inputSearch',
+    'keyup input': 'keySearch'
+  },
 
-  //initialize
-  initialize: function() {
-    //render
-    this.render();
+  keySearch: function(e) {
+    //if enter key is press
+    if (e.keyCode === 13) {
+      //perform inputSearch
+      this.inputSearch();
+    }
+  },
+
+  inputSearch: function() {
+    //assign a value to the input from search bar
+    var query = this.$('input').val();
+    //if a value is given t/f
+    if (query) {
+      //search on the collection with the given value
+      this.collection.search(query);
+    }
+    //empty the input value bar
+    this.$('input').val('');
   },
 
   render: function() {
